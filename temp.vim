@@ -136,7 +136,10 @@ imap  <C-Right> <C-o>:call RightFindKeyword()<CR>
 imap <C-Left> <C-o>:call LeftFindKeyword()<CR>
 nmap <C-Right> :call RightFindKeyword()<CR>
 nmap <C-Left> :call LeftFindKeyword()<CR>
+imap <S-Left> <Esc>v
+imap <S-Right> <Esc>v
+nmap <S-Left> <Esc>v
+nmap <S-Right> <Esc>v
 vmap <C-Right> <Esc>v :call RightFindKeyword()<CR>
 vmap <C-Left> <Esc>v :call LeftFindKeyword()<CR>
-
 set whichwrap+=<,>,h,l,[,]
