@@ -73,9 +73,9 @@ function! RightWrap()
 endfunction
 function! RightFindKeyword()
 	let before=col('.')
-	if(before==strwidth(getline('.')))
+	if(before==strwidth(getline('.')))||(0==strwidth(getline('.')))
 		let temp=getcurpos()[1]
-		if temp+1!=line('$')
+		if temp!=line('$')
 			call cursor(temp+1,1)
 			call cursor(0,1)
 			call RightFindKeyword()
@@ -92,33 +92,54 @@ function! RightFindKeyword()
 	elseif (whatToExpect==0)&&(findq==1)
 		let whatToExpect=1
 	elseif (whatToExpect==0)&&(findq==0)
-		let whatToExpect=1
+		let whatToExpect=1 
 	endif
 	let temp=HuntInDirection(before+1,1,whatToExpect)
 	call cursor(0,temp)
 endfunction
 " shift
-" shift+arrow selection
-nmap <S-Up> v<Up>
-nmap <S-Down> v<Down>
-nmap <S-Left> v<Left>
-nmap <S-Right> v<Right>
-vmap <S-Up> <Up>
-vmap <S-Down> <Down>
-vmap <S-Left> <Left>
-vmap <S-Right> <Right>
-imap <S-Up> <Esc>v<Up>
-imap <S-Down> <Esc>v<Down>
-imap <S-Left> <Esc>v<Left>
-imap <S-Right> <Esc>v<Right>
+map <C-Space> <Esc>v
+imap <C-Space> <Esc>v
 " cut copy paste
 vmap <C-c> y<Esc>i
 vmap <C-x> d<Esc>i
-map <C-v> pi
+imap <C-v> pi
+vmap <Backspace> d<Esc>i
 imap <C-v> <Esc>pi
 imap <C-z> <Esc>ui
-" mappings
-imap <C-Right> <C-o>:call RightFindKeyword()<CR>
-imap <C-Left> <C-o>:call LeftFindKeyword()<CR>
+"save ctrl+s
+nmap <c-s> :w<CR>
+imap <c-s> <Esc>:w<CR>a
+"undo redo
+inoremap <C-Z> <C-O>u
+inoremap <C-Y>	<Esc><C-r>i
 
+"ctrl+backspace
+inoremap <C-BackSpace> <C-o>db
+" find mode with ctrl+f
+noremap  <C-F>      /
+vnoremap <C-F> <C-C>/
+inoremap <C-F> <C-O>/
+" up down find with <F3>
+noremap    <F3>      n
+vnoremap   <F3> <C-c>n
+inoremap   <F3> <C-o>n
+noremap  <S-F3>      N
+vnoremap <S-F3> <C-c>N
+inoremap <S-F3> <C-o>N
+"ctrl+k to kill highlighting
+imap <C-k> <Esc>:noh<CR>i
+vmap <C-k> <Esc>:noh<CR>i
+nmap <C-k> <Esc>:noh<CR>i
+"insert mappings
+imap  <C-Right> <C-o>:call RightFindKeyword()<CR>
+imap <C-Left> <C-o>:call LeftFindKeyword()<CR>
+nmap <C-Right> :call RightFindKeyword()<CR>
+nmap <C-Left> :call LeftFindKeyword()<CR>
+imap <S-Left> <Esc>v
+imap <S-Right> <Esc>v
+nmap <S-Left> <Esc>v
+nmap <S-Right> <Esc>v
+vmap <C-Right> <Esc>v :call RightFindKeyword()<CR>
+vmap <C-Left> <Esc>v :call LeftFindKeyword()<CR>
 set whichwrap+=<,>,h,l,[,]
