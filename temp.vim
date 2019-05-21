@@ -124,7 +124,9 @@ imap <C-z> <Esc>ui
 "undo redo
 inoremap <C-Z> <C-O>u
 inoremap <C-Y> <C-O><C-R>
-" mappings
+"ctrl+backspace
+inoremap <C-BackSpace> <C-o>db
+:" mappings
 imap <C-Right> <C-o>:call RightFindKeyword()<CR>
 imap <C-Left> <C-o>:call LeftFindKeyword()<CR>
 
