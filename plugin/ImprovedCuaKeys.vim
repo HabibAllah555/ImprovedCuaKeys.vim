@@ -98,8 +98,6 @@ function! RightFindKeyword()
 	call cursor(0,temp)
 endfunction
 " shift
-map <C-Space> <Esc>v
-imap <C-Space> <Esc>v
 " cut copy paste
 vmap <C-c> y<Esc>i
 vmap <C-x> d<Esc>i
